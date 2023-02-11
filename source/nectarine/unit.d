@@ -72,7 +72,10 @@ class Unit(Space, Damage, Percentage) : NectarineObject!Space if (isNumeric!(Dam
         return attack - defense;
     }
     
-    
+    auto canAttack()
+    {
+        return !hasAttacked && (!canAttackAfterMoving && !hasMoved);
+    }
 }
 
 class Unit(T, G) : Unit!(T, G, G)
