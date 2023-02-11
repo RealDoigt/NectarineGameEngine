@@ -72,23 +72,12 @@ class Unit(Space, Damage, Percentage) : NectarineObject!Space if (isNumeric!(Dam
         return attack - defense;
     }
     
-    /* 
-        TODO: fix this; the expected truth table for caam and hm is
-        __________
-        |cm|hm|()|
-        |--|--|--|
-        |1 |1 |1 |
-        |--|--|--|
-        |0 |0 |1 |
-        |--|--|--|
-        |1 |0 |1 |
-        |--|--|--|
-        |0 |1 |0 |
-        ¯¯¯¯¯¯¯¯¯¯
-    */
     auto canAttack()
     {
-        return !hasAttacked && (!canAttackAfterMoving && hasMoved);
+        if (hasAttacked) return false;
+        if (!canAttackAfterMoving) return !hasMoved;
+        
+        return true;
     }
 }
 
