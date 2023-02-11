@@ -3,17 +3,23 @@ import nectarine;
 
 class Tile(T) : NectarineObject!T
 {
-    private byte[UnitType] crossingCosts;
+    private 
+    {
+        byte[UnitType] crossingCosts;
+        T defenseBonus;
+    }
     
-    this(T x, T y, UnitType[] canCross ...)
+    this(T x, T y, T defenseBonus, UnitType[] canCross ...)
     {
         super(x, y);
+        this.defenseBonus = defenseBonus;
         foreach(unit; canCross) crossingCosts[unit] = 1;
     }
     
-    this(T x, T y, byte[UnitType] crossingCosts)
+    this(T x, T y, T defenseBonus, byte[UnitType] crossingCosts)
     {
         super(x, y);
+        this.defenseBonus = defenseBonus;
         this.crossingCosts = crossingCosts;
     }
     
