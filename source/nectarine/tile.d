@@ -11,9 +11,15 @@ class Tile(T) : NectarineObject!T
         foreach(unit; canCross) crossingCosts[unit] = 1;
     }
     
+    this(T x, T y, byte[UnitType] crossingCosts)
+    {
+        super(x, y);
+        this.crossingCosts = crossingCosts;
+    }
+    
     auto canCross(UnitType unit)
     {
-        return !(unit !in crossingCosts || crossingCosts[unit] == 0);
+        return getCrossingCost(unit) != 0;
     }
     
     auto getCrossingCost(UnitType unit)
