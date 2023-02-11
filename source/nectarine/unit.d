@@ -36,7 +36,7 @@ class Unit(T, G) : Unit!(T, G, G)
 
 class Unit(T) : Unit!(T, T, T)
 {
-    this(T x, T y)
+    this(T x, T y, T mr, T hp, T ap, T ar = 1, bool caam = true, T[UnitType] apv = null)
     {
         super(x, y);
     }
