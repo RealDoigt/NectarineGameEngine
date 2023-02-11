@@ -20,8 +20,13 @@ class Unit(Space, Damage, Percentage) : NectarineObject!Space if (isNumeric!(Dam
         UT type;
         PUT attackPowerVariations;
         Space movementRange, attackRange;
-        Damage healthPoints, attackPower;
+        Damage healthPoints, healthPointsInit, attackPower;
         bool hasMoved, hasAttacked, canAttackAfterMoving;
+        
+        auto getHealthPointsPercentage()
+        {
+            return healthPoints / healthPointsInit * 100;
+        }
     }
     
     this(Space x, Space y, UT ut, Space mr, Damage hp, Damage ap, Space ar = 1, bool caam = true, PUT apv = null)
@@ -33,8 +38,10 @@ class Unit(Space, Damage, Percentage) : NectarineObject!Space if (isNumeric!(Dam
         attackRange = ar;
         attackPower = ap;
         
-        healthPoints = hp;
         movementRange = mr;
+        
+        healthPoints = hp;
+        healthPointsInit = hp;
         
         canAttackAfterMoving = caam;
     }
@@ -51,14 +58,14 @@ class Unit(Space, Damage, Percentage) : NectarineObject!Space if (isNumeric!(Dam
     
     auto getDamageFor(Unit unit, Tile occupied)
     {
-        auto defense = unit.getHealthPoints / occupied.getDefenseBonus * 100;
+        auto defense = occupied.getDefenseBonus / unit.getHealthPointsPercentage * 100;
         Damage attack;
         
         if (unit.getType !in attackPowerVariations)
-            attack = attackPower / healthPoints * 100;
+            attack = attackPower / getHealthPointsPercentage * 100;
             
         else
-            attack = (attackPower / attackPowerVariations * 100) / healthPoints * 100;
+            attack = (attackPower / attackPowerVariations * 100) / getHealthPointsPercentage * 100;
         
         return attack - defense;
     }
