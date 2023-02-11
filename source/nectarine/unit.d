@@ -65,7 +65,7 @@ class Unit(Space, Damage, Percentage) : NectarineObject!Space if (isNumeric!(Dam
             attack = attackPower / getHealthPointsPercentage * 100;
             
         else
-            attack = (attackPower / attackPowerVariations * 100) / getHealthPointsPercentage * 100;
+            attack = (attackPower / attackPowerVariations[unit.getType] * 100) / getHealthPointsPercentage * 100;
         
         return attack - defense;
     }
