@@ -1,0 +1,9 @@
+{
+	"authors": [
+		"doigt"
+	],
+	"copyright": "Copyright © 2023, doigt",
+	"description": "A minimal Nectaris-like game engine",
+	"license": "mit",
+	"name": "nectarinegameengine"
+}
