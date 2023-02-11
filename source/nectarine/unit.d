@@ -16,14 +16,14 @@ class Unit(Space, Damage, Percentage) : NectarineObject!Space if (isNumeric!(Dam
     {
         alias UT = UnitType;
         alias PUT = Percentage[UT];
-        
+
         UT type;
         PUT attackPowerVariations;
         Space movementRange, attackRange;
         Damage healthPoints, healthPointsInit, attackPower;
-        
+
         bool canAttackAfterMoving, hasMoved, hasAttacked;
-        
+
         auto getHealthPointsPercentage()
         {
             return healthPoints / healthPointsInit * 100;
