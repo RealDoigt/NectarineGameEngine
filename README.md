@@ -1,2 +1,4 @@
 # NectarineGameEngine
-A simple engine for Nectaris-like games
+NGE is highly inspired by the simple but addictive and fun gameplay of Nectaris GB, a game for the GameBoy. For those unfamiliar with the game, it shares many similarities with games like Advance Wars and The Battle for Wesnoth, but it adopts a simpler gameplay philosophy that is more accessible for beginners while retaining the capacity to make complex games happen. In my opinion, it's the ultimate introduction to tile-based and turn-based strategy games. In a way, it's a bit like chess; the game itself is easy to understand and get anyone going, but the game does enjoy a greater level of complexity as you face off against thougher opponents - or game levels in the case of Nectaris GB.
+
+The goal of the NGE is to facilitate the creation of such games by providing a template upon which one can make their own kind of game.
