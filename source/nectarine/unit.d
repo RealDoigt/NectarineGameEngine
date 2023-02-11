@@ -99,6 +99,21 @@ class Unit(Space, Damage, Percentage) : NectarineObject!Space if (isNumeric!(Dam
         return units;
     }
     
+    auto getHasMoved()
+    {
+        return hasMoved;
+    }
+    
+    auto getHasAttacked()
+    {
+        return hasAttacked;
+    }
+    
+    auto getMovementRange()
+    {
+        return movementRange;
+    }
+    
     auto getDamageFor(Unit unit, Tile occupied)
     {
         auto defense = occupied.getDefenseBonus / unit.getHealthPointsPercentage * 100;
