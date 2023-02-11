@@ -1,5 +1,5 @@
 module nectarine.internals.object;
-import std.trait;
+import std.traits;
 
 class NectarineObject(T) if (isNumeric!(T))
 {
