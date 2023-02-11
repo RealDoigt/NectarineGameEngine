@@ -1,5 +1,6 @@
 module nectarine.unit;
 import std.traits;
+import nectarine;
 
 enum UnitType
 {
@@ -14,15 +15,34 @@ class Unit(Space, Damage, Percentage) : NectarineObject!Space if (isNumeric!(Dam
     private
     {
         alias PUT = Percentage[UnitType];
+        
+        PUT attackPowerVariations;
         Space movementRange, attackRange;
         Damage healthPoints, attackPower;
-        Percentage[UnitType] attackPowerVariation;
         bool hasMoved, hasAttacked, canAttackAfterMoving;
     }
     
     this(Space x, Space y, Space mr, Damage hp, Damage ap, Space ar = 1, bool caam = true, PUT apv = null)
     {
         super(x, y);
+        
+        attackRange = ar;
+        attackPower = ap;
+        
+        healthPoints = hp;
+        movementRange = mr;
+        
+        canAttackAfterMoving = caam;
+    }
+    
+    auto getHealthPoints()
+    {
+        return healthPoints;
+    }
+    
+    auto getDamageFor(Unit unit, Tile occupied)
+    {
+        defense = occupied.getDefenseBonus;
     }
 }
 
