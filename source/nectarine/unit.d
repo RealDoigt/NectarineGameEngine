@@ -18,10 +18,11 @@ class Unit(Space, Damage, Percentage) : NectarineObject!Space if (isNumeric!(Dam
         alias PUT = Percentage[UT];
         
         UT type;
-        bool canAttackAfterMoving;
         PUT attackPowerVariations;
         Space movementRange, attackRange;
         Damage healthPoints, healthPointsInit, attackPower;
+        
+        bool canAttackAfterMoving, hasMoved, hasAttacked;
         
         auto getHealthPointsPercentage()
         {
@@ -29,23 +30,33 @@ class Unit(Space, Damage, Percentage) : NectarineObject!Space if (isNumeric!(Dam
         }
     }
     
-    package bool hasMoved, hasAttacked;
-    
-    this(Space x, Space y, UT ut, Space mr, Damage hp, Damage ap, Space ar = 1, bool caam = true, PUT apv = null)
+    this
+    (
+        Space x,
+        Space y,
+        UT type,
+        Space movementRange,
+        Damage healthPoints,
+        Damage attackPower,
+        string name,
+        Space attackRange = 1,
+        bool canAttackAfterMoving = true,
+        PUT attackPowerVariations = null
+    )
     {
         super(x, y);
+        this.name = name;
+        this.type = type;
         
-        type = ut;
+        this.attackRange = attackRange;
+        this.attackPower = attackPower;
         
-        attackRange = ar;
-        attackPower = ap;
+        this.movementRange = movementRange;
         
-        movementRange = mr;
+        this.healthPoints = healthPoints;
+        this.healthPointsInit = healthPoints;
         
-        healthPoints = hp;
-        healthPointsInit = hp;
-        
-        canAttackAfterMoving = caam;
+        this.canAttackAfterMoving = canAttackAfterMoving;
     }
     
     auto getHealthPoints()
@@ -83,15 +94,15 @@ class Unit(Space, Damage, Percentage) : NectarineObject!Space if (isNumeric!(Dam
 
 class Unit(T, G) : Unit!(T, G, G)
 {
-    this(T x, T y, UnitType ut, T mr, G hp, G ap, T ar = 1, bool caam = true, G[UnitType] apv = null)
+    this(T x, T y, UnitType ut, T mr, G hp, G ap, string n, T ar = 1, bool caam = true, G[UnitType] apv = null)
     {
-        super(x, y, ut, mr, hp, ap, ar, caam, apv);
+        super(x, y, ut, mr, hp, ap, n, ar, caam, apv);
     }
 }
 
 class Unit(T) : Unit!(T, T, T)
 {
-    this(T x, T y, UnitType ut, T mr, T hp, T ap, T ar = 1, bool caam = true, T[UnitType] apv = null)
+    this(T x, T y, UnitType ut, T mr, T hp, T ap, string n, T ar = 1, bool caam = true, T[UnitType] apv = null)
     {
         super(x, y, ut, mr, hp, ap, ar, caam, apv);
     }
