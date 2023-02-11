@@ -18,16 +18,18 @@ class Unit(Space, Damage, Percentage) : NectarineObject!Space if (isNumeric!(Dam
         alias PUT = Percentage[UT];
         
         UT type;
+        bool canAttackAfterMoving;
         PUT attackPowerVariations;
         Space movementRange, attackRange;
         Damage healthPoints, healthPointsInit, attackPower;
-        bool hasMoved, hasAttacked, canAttackAfterMoving;
         
         auto getHealthPointsPercentage()
         {
             return healthPoints / healthPointsInit * 100;
         }
     }
+    
+    package bool hasMoved, hasAttacked;
     
     this(Space x, Space y, UT ut, Space mr, Damage hp, Damage ap, Space ar = 1, bool caam = true, PUT apv = null)
     {
@@ -69,6 +71,8 @@ class Unit(Space, Damage, Percentage) : NectarineObject!Space if (isNumeric!(Dam
         
         return attack - defense;
     }
+    
+    
 }
 
 class Unit(T, G) : Unit!(T, G, G)
