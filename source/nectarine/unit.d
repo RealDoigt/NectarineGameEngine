@@ -1,6 +1,7 @@
 module nectarine.unit;
 import std.traits;
 import nectarine;
+import std.math;
 
 enum UnitType
 {
@@ -10,7 +11,7 @@ enum UnitType
     air
 }
 
-class Unit(Space, Damage, Percentage) : NectarineObject!Space if (isNumeric!(Damage) && isNumeric(Percentage))
+class Unit(Space, Hitpoints, Percentage) : NectarineObject!Space if (isNumeric!(Hitpoints) && isNumeric(Percentage))
 {
     private
     {
@@ -18,12 +19,17 @@ class Unit(Space, Damage, Percentage) : NectarineObject!Space if (isNumeric!(Dam
         alias PUT = Percentage[UT];
 
         UT type;
+        bool canAttackAfterMoving;
         PUT attackPowerVariations;
         Space movementRange, attackRange;
-        Damage healthPoints, healthPointsInit, attackPower;
-
-        bool canAttackAfterMoving, hasMoved, hasAttacked;
-
+        Hitpoints healthPointsInit, attackPower;
+    }
+    
+    protected
+    {
+        Hitpoints healthPoints;
+        bool hasMoved, hasAttacked;
+        
         auto getHealthPointsPercentage()
         {
             return healthPoints / healthPointsInit * 100;
@@ -36,8 +42,8 @@ class Unit(Space, Damage, Percentage) : NectarineObject!Space if (isNumeric!(Dam
         Space y,
         UT type,
         Space movementRange,
-        Damage healthPoints,
-        Damage attackPower,
+        Hitpoints healthPoints,
+        Hitpoints attackPower,
         string name,
         Space attackRange = 1,
         bool canAttackAfterMoving = true,
@@ -57,6 +63,11 @@ class Unit(Space, Damage, Percentage) : NectarineObject!Space if (isNumeric!(Dam
         this.healthPointsInit = healthPoints;
         
         this.canAttackAfterMoving = canAttackAfterMoving;
+    }
+    
+    auto getHealthPointsInit()
+    {
+        return healthPointsInit;
     }
     
     auto getHealthPoints()
@@ -134,6 +145,33 @@ class Unit(Space, Damage, Percentage) : NectarineObject!Space if (isNumeric!(Dam
         if (!canAttackAfterMoving) return !hasMoved;
         
         return true;
+    }
+    
+    void invertHasMoved()
+    {
+        hasMoved = !hasMoved;
+    }
+    
+    void invertHasAttacked()
+    {
+        hasMoved = !hasMoved;
+    }
+    
+    void setHealthPoints(Hitpoints value)
+    {        
+        healthPoints = value >= 0 ? value <= healthPointsInit ? value : healthPointsInit : 0; 
+    }
+    
+    void damage(Hitpoints value)
+    {
+        auto newValue = healthPoints - value.abs;
+        healthPoints = newValue >= 0 ? newValue : 0;
+    }
+    
+    void heal(Hitpoints value)
+    {
+        auto newValue = healthPoints + value.abs;
+        healthPoints = newValue <= healthPointsInit ? newValue : healthPointsInit;
     }
 }
 
