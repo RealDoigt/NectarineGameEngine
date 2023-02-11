@@ -32,4 +32,9 @@ class Tile(T) : NectarineObject!T
     {
         return unit !in crossingCosts ? 0 : crossingCosts[unit];
     }
+    
+    auto getDefenseBonus()
+    {
+        return defenseBonus;
+    }
 }
