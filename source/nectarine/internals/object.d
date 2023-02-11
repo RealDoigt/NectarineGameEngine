@@ -3,7 +3,16 @@ import std.traits;
 
 class NectarineObject(T) if (isNumeric!(T))
 {
-    protected T x, y;
+    protected 
+    {
+        T x, y;
+        
+        void setPosition(T x, T y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+    }
     
     this(T x, T y)
     {
