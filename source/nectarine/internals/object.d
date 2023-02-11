@@ -10,4 +10,14 @@ class NectarineObject(T) if (isNumeric!(T))
         this.x = x;
         this.y = y;
     }
+    
+    T getX()
+    {
+        return x;
+    }
+    
+    T getY()
+    {
+        return y;
+    }
 }
