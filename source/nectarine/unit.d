@@ -69,6 +69,36 @@ class Unit(Space, Damage, Percentage) : NectarineObject!Space if (isNumeric!(Dam
         return type;
     }
     
+    auto getAttackPower()
+    {
+        return attackPower;
+    }
+    
+    auto getAttackRange()
+    {
+        return attackRange;
+    }
+    
+    auto getGoodMatchups()
+    {
+        UnitType[] units;
+        
+        foreach(key, value; attackPowerVariations)
+            if (value > 100) units ~= key;
+            
+        return units;
+    }
+    
+    auto getBadMatchups()
+    {
+        UnitType[] units;
+        
+        foreach(key, value; attackPowerVariations)
+            if (value < 100) units ~= key;
+            
+        return units;
+    }
+    
     auto getDamageFor(Unit unit, Tile occupied)
     {
         auto defense = occupied.getDefenseBonus / unit.getHealthPointsPercentage * 100;
