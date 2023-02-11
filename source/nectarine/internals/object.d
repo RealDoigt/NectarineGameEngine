@@ -3,6 +3,8 @@ import std.traits;
 
 class NectarineObject(T) if (isNumeric!(T))
 {
+    private string name;
+
     protected 
     {
         T x, y;
@@ -14,10 +16,11 @@ class NectarineObject(T) if (isNumeric!(T))
         }
     }
     
-    this(T x, T y)
+    this(T x, T y, string name)
     {
         this.x = x;
         this.y = y;
+        this.name = name;
     }
     
     T getX()

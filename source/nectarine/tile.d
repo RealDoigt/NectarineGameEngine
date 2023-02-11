@@ -9,9 +9,9 @@ class Tile(T) : NectarineObject!T
         T defenseBonus;
     }
     
-    this(T x, T y, T defenseBonus, UnitType[] canCross ...)
+    this(T x, T y, T defenseBonus, string name, UnitType[] canCross ...)
     {
-        super(x, y);
+        super(x, y, name);
         this.defenseBonus = defenseBonus;
         foreach(unit; canCross) crossingCosts[unit] = 1;
     }

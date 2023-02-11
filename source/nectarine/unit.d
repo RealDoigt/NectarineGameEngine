@@ -44,8 +44,8 @@ class Unit(Space, Damage, Percentage) : NectarineObject!Space if (isNumeric!(Dam
         PUT attackPowerVariations = null
     )
     {
-        super(x, y);
-        this.name = name;
+        super(x, y, name);
+
         this.type = type;
         
         this.attackRange = attackRange;
